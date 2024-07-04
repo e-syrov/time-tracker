@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<h1>Users</h1>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Surname</th>
+        <th>Name</th>
+        <th>Patronymic</th>
+        <th>Passport Number</th>
+        <th>Address</th>
+    </tr>
+    {{range .}}
+    <tr>
+        <td>{{.ID}}</td>
+        <td>{{.Surname}}</td>
+        <td>{{.Name}}</td>
+        <td>{{.Patronymic}}</td>
+        <td>{{.PassportNumber}}</td>
+        <td>{{.Address}}</td>
+    </tr>
+    {{end}}
+</table>
+</body>
+</html>

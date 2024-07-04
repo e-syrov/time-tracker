@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Efforts</title>
+</head>
+<body>
+<h1>User Efforts</h1>
+{{if .}}
+<table border="1">
+    <tr>
+        <th>UserID</th>
+        <th>TaskID</th>
+        <th>Hours</th>
+        <th>Minutes</th>
+    </tr>
+    {{range .}}
+    <tr>
+        <td>{{.UserID}}</td>
+        <td>{{.TaskID}}</td>
+        <td>{{.Hours}}</td>
+        <td>{{.Minutes}}</td>
+    </tr>
+    {{end}}
+</table>
+{{else}}
+<p>No efforts found for the given period.</p>
+{{end}}
+</body>
+</html>
