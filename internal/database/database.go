@@ -10,15 +10,20 @@ import (
 	"strings"
 	"time"
 	"time-tracker/internal/config"
+	"time-tracker/internal/logger"
 	"time-tracker/internal/models"
 )
 
 var db *sql.DB
 
 func InitDB(config *config.Config) error {
+	logger.Logger.Info("Initializing database connection")
+	defer logger.Logger.Info("Database connection initialized")
+
 	dsn := fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=disable",
 		config.DBHost, config.DBPort, config.DBUser, config.DBName)
 	var err error
+
 	db, err = sql.Open("postgres", dsn)
 	if err != nil {
 		return fmt.Errorf("failed to connect to database: %v", err)
@@ -40,6 +45,9 @@ func InitDB(config *config.Config) error {
 }
 
 func CheckUserByPassport(passportNumber string) (bool, error) {
+	logger.Logger.Info("Checking user by passport number")
+	defer logger.Logger.Info("Checked user by passport number")
+
 	var exist bool
 	query := `SELECT EXISTS (SELECT 1 FROM users WHERE passport_number = $1)`
 
@@ -51,6 +59,8 @@ func CheckUserByPassport(passportNumber string) (bool, error) {
 }
 
 func GetUsers(pageSize, offset int, name, surname, patronymic, passportNumber, address string) ([]models.User, error) {
+	logger.Logger.Info("Getting users")
+	defer logger.Logger.Info("Done getting users")
 	var users []models.User
 	query := `SELECT id, surname, name, patronymic, passport_number, address FROM users`
 	var conditions []string
@@ -110,6 +120,8 @@ func GetUsers(pageSize, offset int, name, surname, patronymic, passportNumber, a
 }
 
 func CheckTaskExist(taskId int) (bool, error) {
+	logger.Logger.Info("Checking task exists")
+	defer logger.Logger.Info("Done checking task exists")
 	query := `SELECT task_id FROM tasks 
               WHERE task_id = $1
 			  AND end_time IS NULL`
@@ -129,6 +141,8 @@ func CheckTaskExist(taskId int) (bool, error) {
 }
 
 func CheckUserExist(userID int) (bool, error) {
+	logger.Logger.Info("Checking user exists")
+	defer logger.Logger.Info("Done checking user exists")
 	query := `SELECT id FROM users WHERE id = $1`
 
 	row := db.QueryRow(query, userID)
@@ -144,6 +158,8 @@ func CheckUserExist(userID int) (bool, error) {
 }
 
 func StartTaskTimer(userId int) error {
+	logger.Logger.Info("Starting task timer")
+	defer logger.Logger.Info("Done starting task timer")
 	query := `INSERT INTO tasks (user_id, start_time) VALUES ($1, $2)`
 
 	_, err := db.Exec(query, userId, time.Now())
@@ -154,6 +170,8 @@ func StartTaskTimer(userId int) error {
 }
 
 func StopTaskTimer(taskID int) error {
+	logger.Logger.Info("Stopping task timer")
+	defer logger.Logger.Info("Done stopping task timer")
 
 	query := `UPDATE tasks SET end_time = $1 WHERE task_id = $2`
 
@@ -165,6 +183,8 @@ func StopTaskTimer(taskID int) error {
 }
 
 func DeleteUser(userId int) error {
+	logger.Logger.Info("Deleting user")
+	defer logger.Logger.Info("Done deleting user")
 
 	query := `DELETE FROM tasks WHERE user_id = $1`
 	_, err := db.Exec(query, userId)
@@ -182,6 +202,8 @@ func DeleteUser(userId int) error {
 }
 
 func UpdateUser(userId int, surname, name, patronymic, passportNumber, address string) error {
+	logger.Logger.Info("Updating user")
+	defer logger.Logger.Info("Done updating user")
 	query := `UPDATE users SET `
 
 	var conditions []string
@@ -229,6 +251,9 @@ func UpdateUser(userId int, surname, name, patronymic, passportNumber, address s
 }
 
 func GetTasks(userId int) ([]models.Task, error) {
+	logger.Logger.Info("Getting tasks")
+	defer logger.Logger.Info("Done getting tasks")
+
 	query := `SELECT user_id, task_id, start_time, end_time
  			  FROM tasks
  			  WHERE end_time IS NOT NULL
@@ -256,6 +281,8 @@ func GetTasks(userId int) ([]models.Task, error) {
 }
 
 func GetTasksByPeriod(userId int, startPeriod, endPeriod time.Time) ([]models.Task, error) {
+	logger.Logger.Info("Getting tasks by period")
+	defer logger.Logger.Info("Done getting tasks by period")
 	query := `SELECT user_id, task_id, start_time, end_time
  			  FROM tasks
  			  WHERE end_time IS NOT NULL
@@ -283,6 +310,9 @@ func GetTasksByPeriod(userId int, startPeriod, endPeriod time.Time) ([]models.Ta
 }
 
 func SaveUser(user models.User) error {
+	logger.Logger.Info("Saving user")
+	defer logger.Logger.Info("Done saving user")
+
 	query := `INSERT INTO users (surname, name, patronymic, address, passport_number)
  			  VALUES ($1, $2, $3, $4, $5)`
 	_, err := db.Exec(query, user.Surname, user.Name, user.Patronymic, user.Address, user.PassportNumber)

@@ -7,9 +7,12 @@ import (
 	"time-tracker/internal/config"
 	"time-tracker/internal/database"
 	"time-tracker/internal/handlers"
+	"time-tracker/internal/logger"
 )
 
 func Run() error {
+
+	logger.InitLogger()
 
 	cfg, err := config.LoadConfig()
 	if err != nil {

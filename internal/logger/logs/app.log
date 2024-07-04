@@ -1,0 +1,16 @@
+{"level":"info","timestamp":"2024-07-05T00:26:45.525+0400","msg":"Loading config"}
+{"level":"info","timestamp":"2024-07-05T00:26:45.526+0400","msg":"Loaded config"}
+{"level":"info","timestamp":"2024-07-05T00:26:45.526+0400","msg":"Initializing database connection"}
+{"level":"info","timestamp":"2024-07-05T00:26:45.571+0400","msg":"Database connection initialized"}
+{"level":"info","timestamp":"2024-07-05T00:27:04.735+0400","msg":"GetUsers handler called"}
+{"level":"warn","timestamp":"2024-07-05T00:27:04.735+0400","msg":"Invalid page number, defaulting to 1","pageStr":"","error":"strconv.Atoi: parsing \"\": invalid syntax"}
+{"level":"warn","timestamp":"2024-07-05T00:27:04.735+0400","msg":"Invalid page size, defaulting to 10","pageSizeStr":"","error":"strconv.Atoi: parsing \"\": invalid syntax"}
+{"level":"info","timestamp":"2024-07-05T00:27:04.735+0400","msg":"Getting users"}
+{"level":"info","timestamp":"2024-07-05T00:27:04.749+0400","msg":"Done getting users"}
+{"level":"info","timestamp":"2024-07-05T00:27:04.750+0400","msg":"GetUsers handler finished"}
+{"level":"info","timestamp":"2024-07-05T00:28:08.261+0400","msg":"GetUsers handler called"}
+{"level":"warn","timestamp":"2024-07-05T00:28:08.261+0400","msg":"Invalid page number, defaulting to 1","pageStr":"","error":"strconv.Atoi: parsing \"\": invalid syntax"}
+{"level":"warn","timestamp":"2024-07-05T00:28:08.261+0400","msg":"Invalid page size, defaulting to 10","pageSizeStr":"","error":"strconv.Atoi: parsing \"\": invalid syntax"}
+{"level":"info","timestamp":"2024-07-05T00:28:08.261+0400","msg":"Getting users"}
+{"level":"info","timestamp":"2024-07-05T00:28:08.262+0400","msg":"Done getting users"}
+{"level":"info","timestamp":"2024-07-05T00:28:08.262+0400","msg":"GetUsers handler finished"}

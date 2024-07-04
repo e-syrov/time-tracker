@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/joho/godotenv"
 	"os"
+	"time-tracker/internal/logger"
 )
 
 type Config struct {
@@ -15,10 +16,13 @@ type Config struct {
 }
 
 func LoadConfig() (*Config, error) {
+	logger.Logger.Info("Loading config")
 	err := godotenv.Load(".env")
 	if err != nil {
 		return nil, fmt.Errorf("error loading .env file")
 	}
+
+	logger.Logger.Info("Loaded config")
 	return &Config{
 		DBHost:     os.Getenv("DB_HOST"),
 		DBPort:     os.Getenv("DB_PORT"),
